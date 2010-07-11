@@ -24,11 +24,11 @@
  * 02110-1301, USA.
  */
 
-#include "game.h"
+#include "juego.h"
 
 int main(int argc, char *argv[])
 {
-    Game j;
+    Juego j;
     j.show();
 
     return 0;
