@@ -60,16 +60,10 @@ void Tablero::generar(){
 
 	    }
 	}
-    }while(!comprobar().empty() || existeSolucion().empty()); // Regenera si hay alguna solución directa o si es imposible
+	
+	// Regenera si hay alguna solución directa o si es imposible de resolver
+    }while(!comprobar().empty() || existeSolucion().empty()); 
 
-    for (int i = 0; i < 8; ++i)
-    {
-	for (int j = 0; j < 8; ++j)
-	{
-
-	    lDEBUG << "F" << casillas[i][j].origY << " " << casillas[i][j].destY;
-	}
-    }
     lDEBUG << "Tablero generado";
 }
 
@@ -97,7 +91,6 @@ vector<coord> Tablero::existeSolucion(){
 
 
     // Hacemos una copia del tablero para hacer las comprobaciones
-    
     Tablero temp = *this;
 
     for(int x = 0; x < 8; ++x){
@@ -162,7 +155,7 @@ vector<coord> Tablero::comprobar(){
     for(int y = 0; y < 8; ++y){ 
 	for(int x = 0; x < 8; ++x){ 
 
-	    /* Recorremos de j - 1 hasta el inicio */
+	    /* Recorremos de x - 1 hasta el inicio */
 	    for(int k = x - 1; k >= 0; --k){ 
 		if(casillas[x][y] == casillas[k][y] && casillas[x][y] != casVacia){
 		    comprobHor[x][y] = comprobHor[x][y] + 1;
@@ -171,7 +164,7 @@ vector<coord> Tablero::comprobar(){
 		}
 	    }
 
-	    /* Recorremos de j + 1 hasta el final */
+	    /* Recorremos de x + 1 hasta el final */
 	    for(int k = x + 1; k < 8; ++k){
 		if(casillas[x][y] == casillas[k][y] && casillas[x][y] != casVacia){
 		    comprobHor[x][y] = comprobHor[x][y] + 1;
@@ -277,26 +270,39 @@ void Tablero::rellenarEspacios(){
 
     lDEBUG << "Tablero::rellenarEspacios";
 
-	for(int x = 0; x < 8; ++x){
-	    // Contar cuántos espacios hay que bajar
-	    int saltos = 0;
+    // Recorremos cada columna x
+    for(int x = 0; x < 8; ++x){
 
-	    for(int y = 0; y < 8; ++y){
-		if(casillas[x][y] != casVacia) break;
-		saltos ++;
-	    }
+	int saltos = 0;
 
-	    for(int y = 0; y < 8; ++y){
-		if(casillas[x][y] == casVacia) {
-		    
-		    casillas[x][y] = static_cast<tCasilla> ( (int)Gosu::random(1,8) );
+	// Contamos el número de casillas vacías que hay en la parte
+	// superior de la columna, guardando el resultado en la
+	// variable saltos
+	for(int y = 0; y < 8; ++y){
+	    if(casillas[x][y] != casVacia) break;
+	    saltos ++;
+	}
+	
+	// Por cada casilla libre en cada columna
+	for(int y = 0; y < 8; ++y){
 
-		    casillas[x][y].debeCaer = true;  
-		    casillas[x][y].origY = y - saltos;
-		    casillas[x][y].destY = saltos;
-		}		
-	    }
-	}	
+	    if(casillas[x][y] == casVacia) {
+		
+		// Generamos un tipo aleatorio de casilla
+		casillas[x][y] = static_cast<tCasilla> ( (int)Gosu::random(1,8) );
+		
+		// La nueva casilla debe aparecer desde arriba
+		casillas[x][y].debeCaer = true;  
+
+		// La posición inicial estará por encima del tablero
+		// tantas casillas como sitios libres
+		casillas[x][y].origY = y - saltos;
+		
+		// Por tanto, se moverá ese número de posiciones verticalmente
+		casillas[x][y].destY = saltos;
+	    }		
+	}
+    }	
 }
 
 void Tablero::cancelarAnimaciones(){
