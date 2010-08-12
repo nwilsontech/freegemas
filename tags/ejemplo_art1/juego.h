@@ -28,6 +28,7 @@ public:
 
 	~Juego(){
 		delete imagen;
+		delete fondo;
 	}
 
 };
