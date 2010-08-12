@@ -4,26 +4,30 @@
 #include <Gosu/Gosu.hpp>
 
 class Juego : public Gosu::Window{
-	Gosu::Image img;
+	Gosu::Image * imagen, * fondo;
 public:
 
-	Juego() : 
-		Gosu::Window(800, 600, false),
-		img(graphics(), L"imagen.png")
-		{  
-
-		}
+	Juego() : Gosu::Window(800, 600, false){
+		imagen = new Gosu::Image(graphics(), L"imagen.png");
+		fondo = new Gosu::Image(graphics(), L"background.png");
+		
+	}
 
 	void update() { 
 		// aquí iría la lógica del juego
 	}
 
 	void draw() { 
-		img.draw(175, 212, 1);
+		imagen -> draw(175, 212, 1);
+		fondo -> draw(0,0,0);
 	}  
 
 	void buttonDown(Gosu::Button B) { 
 		close(); 
+	}
+
+	~Juego(){
+		delete imagen;
 	}
 
 };
