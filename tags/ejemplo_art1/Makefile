@@ -13,6 +13,9 @@ OBJS += $(addsuffix .o,$(basename $(SRCS)))
 $(OUTPUT): $(OBJS)
 	$(CXX) $(LDFLAGS) -o $@ $^ $(LIBS) 
 
+libgosu:
+	cd gosu/linux && ./configure && make
+
 clean:
 	rm $(OBJS) $(OUTPUT) *~ -rf
 
