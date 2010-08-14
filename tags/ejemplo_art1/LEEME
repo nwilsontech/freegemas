@@ -1,0 +1,3 @@
+Recuerda compilar primero la biblioteca entrando en la carpeta
+gosu, luego en la carpeta linux, y ejecutando ./configure && make
+
