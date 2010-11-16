@@ -5,12 +5,12 @@ AR     := ar rc
 RANLIB := ranlib
 
 CXXFLAGS  := -Wall -g
-CXXFLAGS  += -I. `gosu-config --cxxflags`
+CXXFLAGS  += -I. -Igosu `gosu/bin/gosu-config --cxxflags`
 
 LDFLAGS   := -Wall
-LDFLAGS   += `gosu-config --libs --cxxflags` 
+LDFLAGS   += `gosu/bin/gosu-config --libs --cxxflags` 
 
-LIBS      := -lgosu
+LIBS      := gosu/lib/libgosu.a
 
 OUTPUT += programa
 
