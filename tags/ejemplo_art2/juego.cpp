@@ -292,8 +292,8 @@ void Juego::draw(){
 	    if(img != NULL){
 
 		// Estado: TODAS las casillas están animándose
-		if(estado == eInicialGemas || estado == eDesapareceTablero){
-//		    lDEBUG << i << "," << j << " => " << tablero.casillas[i][j].origY << " _ " << tablero.casillas[i][j].destY;
+		if(estado == eInicialGemas || 
+		   estado == eDesapareceTablero){
 
 		    img -> draw(origenX + i * 65,
 				eqMov(pasoAnim,
@@ -305,7 +305,9 @@ void Juego::draw(){
 		}
 
 		// Estado: Sólo las casillas marcadas (debeCaer = true) están animándose
-		else if(estado == eEspera || estado == eGemaMarcada || estado == eGemasNuevasCayendo){
+		else if(estado == eEspera || 
+			estado == eGemaMarcada || 
+			estado == eGemasNuevasCayendo){
 
 		    // Si debe animarse
 		    if(tablero.casillas[i][j].debeCaer){
