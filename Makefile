@@ -1,3 +1,24 @@
+# Makefile para el segundo ejemplo del artículo para Linux Magazine
+
+# Copyright (C) 2010 José Tomás Tocino García <theom3ga@gmail.com>
+
+# Autor: José Tomás Tocino García
+
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
+
 CC     := gcc
 CXX    := g++
 LD     := g++
@@ -5,32 +26,23 @@ AR     := ar rc
 RANLIB := ranlib
 
 CXXFLAGS  := -Wall -g
-CXXFLAGS  += -I. -Igosu `gosu/bin/gosu-config --cxxflags` -Iinclude
+CXXFLAGS  += -I. -Igosu `gosu/bin/gosu-config --cxxflags`
 
 LDFLAGS   := -Wall
 LDFLAGS   += `gosu/bin/gosu-config --libs --cxxflags` 
 
 LIBS      := gosu/lib/libgosu.a
 
-OUTPUT += freegemas
-
-OBJDIR := obj
-SRCDIR := src
-
-SRCS := $(notdir $(shell ls -t $(SRCDIR)/*.cpp))
-
-OBJS := $(addprefix $(OBJDIR)/, $(addsuffix .o,$(basename $(SRCS))))
+OUTPUT += juego
 
 all: $(OUTPUT)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.cpp
-	@echo "Compiling..." $(notdir $<)
-	@$(CXX) $(CXXFLAGS) -c $< -o $@
+SRCS += main.cpp juego.cpp tablero.cpp
+
+OBJS += $(addsuffix .o,$(basename $(SRCS)))
 
 $(OUTPUT): $(OBJS)
-	@echo "Linking binary..."
-	@$(CXX) $(LDFLAGS) -o $@ $^ $(LIBS) 
-	@echo "Done."
+	$(CXX) $(LDFLAGS) -o $@ $^ $(LIBS) 
 
 libgosu:
 	cd gosu/linux ; make clean ; ./configure && make
@@ -41,12 +53,5 @@ regosu:
 clean:
 	rm $(OBJS) $(OUTPUT) *~ -rf
 
-obj/log.o: include/log.h
-obj/game.o: include/game.h include/log.h include/state.h include/stateGame.h include/stateMainMenu.h include/resManager.h include/stateHowtoplay.h
-obj/state.o: include/state.h include/log.h include/stateGame.h include/stateMainMenu.h include/stateHowtoplay.h
-obj/stateGame.o: include/stateGame.h include/state.h include/game.h include/log.h include/board.h include/floatingScore.h include/scoreTable.h include/baseButton.h include/resManager.h include/sdlfont.h
-obj/stateMainMenu.o: include/stateMainMenu.h include/state.h include/game.h include/log.h include/resManager.h include/jewelGroupAnim.h include/sdlfont.h
-obj/board.o: include/board.h include/log.h
-obj/scoreTable.o: include/scoreTable.h include/game.h
-obj/stateHowtoplay.o: include/stateHowtoplay.h include/state.h include/game.h include/resManager.h include/sdlfont.h	
-
+juego.o: juego.h tablero.h
+tablero.o: tablero.h

@@ -1,10 +1,10 @@
 /**
- * @file juego.h
+ * @file main.cpp
  * 
  * @author José Tomás Tocino García
  * @date 2010
  *
- * Fichero con la clase para la ventana principal
+ * Archivo inicial del juego freegemas
  * 
  * Copyright (C) 2010 José Tomás Tocino García <theom3ga@gmail.com>
  * 
@@ -24,52 +24,13 @@
  * 02110-1301, USA.
  */
 
-#ifndef _GAME_H_
-#define _GAME_H_
+#include "juego.h"
 
-#include <Gosu/Gosu.hpp>
+int main(int argc, char *argv[])
+{
+    Juego j;
+    j.show();
 
-#include <boost/scoped_ptr.hpp>
-#include <string>
-using namespace std;
+    return 0;
+}
 
-#include "log.h"
-
-class State;
-
-/**
- * @class Juego
- *
- * @brief Ventana principal del juego.
- *
- * Se encarga de gestionar el autómata de estados
- *
- * @author José Tomás Tocino García <theom3ga@gmail.com> 
- *
- */
-class Game : public Gosu::Window{
-
-public:
-    Game ();
-
-    void update();
-
-    void draw();
-
-    void buttonDown(Gosu::Button button);
-
-    void buttonUp(Gosu::Button button);
-
-    void changeState(string S);
-
-    ~Game();
-
-private:
-    boost::scoped_ptr<State> currentState;
-    string currentStateString;
-
-    boost::scoped_ptr<Gosu::Image> mousePointer;
-
-};
-
-#endif /* _JUEGO_H_ */
