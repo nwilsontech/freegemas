@@ -25,6 +25,7 @@
 #include <Gosu/Gosu.hpp>
 #include <iostream>
 
+#include "base/window.h"
 #include "log.h"
 
 using namespace std;
@@ -46,7 +47,6 @@ protected:
     /**
      @brief Puntero al padre creador.
 
-     Nos sirve para poder cambiar de state (llamando a #Game::cambiarState()), acceder al sistema gráfico (con Game::graphics()) y otras acciones.
     **/
     Game * parent;
 public:
@@ -70,12 +70,12 @@ public:
     virtual void update() = 0;
 
     /// Virtual puro. Cada state implementa el redibujado aquí.
-    virtual void draw() = 0;
+    virtual void draw(DrawingManager & dMngr) = 0;
 
     /// Opcionalmente los states pueden responder a la entrada redefiniendo este método.
-    virtual void buttonDown(Gosu::Button){};
+    virtual void buttonDown(sf::Key::Code button){};
 
-    virtual void buttonUp(Gosu::Button){};
+    virtual void buttonUp(sf::Key::Code button){};
 
     virtual ~State();
 };

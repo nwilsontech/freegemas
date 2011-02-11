@@ -5,19 +5,20 @@ AR     := ar rc
 RANLIB := ranlib
 
 CXXFLAGS  := -Wall -g
-CXXFLAGS  += -I. -Igosu `gosu/bin/gosu-config --cxxflags` -Iinclude
+CXXFLAGS  += -I. -Iinclude
 
 LDFLAGS   := -Wall
-LDFLAGS   += `gosu/bin/gosu-config --libs --cxxflags` 
+LDFLAGS   += 
 
-LIBS      := gosu/lib/libgosu.a
+LIBS      := -lsfml-graphics -lsfml-window -lsfml-system
 
 OUTPUT += freegemas
 
 OBJDIR := obj
 SRCDIR := src
 
-SRCS := $(notdir $(shell ls -t $(SRCDIR)/*.cpp))
+#SRCS := $(notdir $(shell ls -t $(SRCDIR)/*.cpp))
+SRCS := main.cpp game.cpp log.cpp base/window.cpp stateMainMenu.cpp state.cpp
 
 OBJS := $(addprefix $(OBJDIR)/, $(addsuffix .o,$(basename $(SRCS))))
 
@@ -25,7 +26,7 @@ all: $(OUTPUT)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	@echo "Compiling..." $(notdir $<)
-	@$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(OUTPUT): $(OBJS)
 	@echo "Linking binary..."
@@ -42,11 +43,11 @@ clean:
 	rm $(OBJS) $(OUTPUT) *~ -rf
 
 obj/log.o: include/log.h
-obj/game.o: include/game.h include/log.h include/state.h include/stateGame.h include/stateMainMenu.h include/resManager.h include/stateHowtoplay.h
+obj/game.o: include/game.h include/log.h include/base/window.h include/state.h include/stateMainMenu.h #include/stateGame.h  include/resManager.h include/stateHowtoplay.h
 obj/state.o: include/state.h include/log.h include/stateGame.h include/stateMainMenu.h include/stateHowtoplay.h
-obj/stateGame.o: include/stateGame.h include/state.h include/game.h include/log.h include/board.h include/floatingScore.h include/scoreTable.h include/baseButton.h include/resManager.h include/sdlfont.h
-obj/stateMainMenu.o: include/stateMainMenu.h include/state.h include/game.h include/log.h include/resManager.h include/jewelGroupAnim.h include/sdlfont.h
-obj/board.o: include/board.h include/log.h
-obj/scoreTable.o: include/scoreTable.h include/game.h
-obj/stateHowtoplay.o: include/stateHowtoplay.h include/state.h include/game.h include/resManager.h include/sdlfont.h	
+# obj/stateGame.o: include/stateGame.h include/state.h include/game.h include/log.h include/board.h include/floatingScore.h include/scoreTable.h include/baseButton.h include/resManager.h include/sdlfont.h
+obj/stateMainMenu.o: include/stateMainMenu.h include/state.h include/game.h include/log.h #include/resManager.h include/jewelGroupAnim.h include/sdlfont.h
+# obj/board.o: include/board.h include/log.h
+# obj/scoreTable.o: include/scoreTable.h include/game.h
+# obj/stateHowtoplay.o: include/stateHowtoplay.h include/state.h include/game.h include/resManager.h include/sdlfont.h	
 

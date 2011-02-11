@@ -27,12 +27,13 @@
 #ifndef _GAME_H_
 #define _GAME_H_
 
-#include <Gosu/Gosu.hpp>
+#include <SFML/Graphics.hpp>
 
 #include <boost/scoped_ptr.hpp>
 #include <string>
 using namespace std;
 
+#include "base/window.h"
 #include "log.h"
 
 class State;
@@ -47,18 +48,18 @@ class State;
  * @author José Tomás Tocino García <theom3ga@gmail.com> 
  *
  */
-class Game : public Gosu::Window{
+class Game : public BaseWindow{
 
 public:
     Game ();
 
     void update();
 
-    void draw();
+    void draw(DrawingManager & dMngr);
 
-    void buttonDown(Gosu::Button button);
+    void buttonDown(sf::Key::Code button);
 
-    void buttonUp(Gosu::Button button);
+    void buttonUp(sf::Key::Code button);
 
     void changeState(string S);
 
@@ -68,8 +69,8 @@ private:
     boost::scoped_ptr<State> currentState;
     string currentStateString;
 
-    boost::scoped_ptr<Gosu::Image> mousePointer;
-
+    sf::Sprite spCursor;
+    sf::Image imCursor;
 };
 
 #endif /* _JUEGO_H_ */

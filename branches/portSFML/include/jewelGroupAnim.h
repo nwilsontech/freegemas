@@ -1,26 +1,37 @@
 #ifndef _JEWELGROUPANIM_H_
 #define _JEWELGROUPANIM_H_
 
-#include <Gosu/Gosu.hpp>
+#include <SFML/Graphics.hpp>
+
 
 #include <boost/shared_ptr.hpp>
+#include "game.h"
 
-#include "resManager.h"
+#include <cmath>
+
 
 class JewelGroupAnim{
 public:
     JewelGroupAnim(){
-	imgGems[0] = ResMgr -> getImage (Gosu::resourcePrefix() + L"media/gemWhite.png");
-	imgGems[1] = ResMgr -> getImage (Gosu::resourcePrefix() + L"media/gemRed.png");
-	imgGems[2] = ResMgr -> getImage (Gosu::resourcePrefix() + L"media/gemPurple.png");
-	imgGems[3] = ResMgr -> getImage (Gosu::resourcePrefix() + L"media/gemOrange.png");
-	imgGems[4] = ResMgr -> getImage (Gosu::resourcePrefix() + L"media/gemGreen.png");
-	imgGems[5] = ResMgr -> getImage (Gosu::resourcePrefix() + L"media/gemYellow.png");
-	imgGems[6] = ResMgr -> getImage (Gosu::resourcePrefix() + L"media/gemBlue.png");
+	imgGems[0].LoadFromFile("media/gemWhite.png");
+	imgGems[1].LoadFromFile("media/gemRed.png");
+	imgGems[2].LoadFromFile("media/gemPurple.png");
+	imgGems[3].LoadFromFile("media/gemOrange.png");
+	imgGems[4].LoadFromFile("media/gemGreen.png");
+	imgGems[5].LoadFromFile("media/gemYellow.png");
+	imgGems[6].LoadFromFile("media/gemBlue.png");
+
+	sprGems[0].SetImage(imgGems[0]);
+	sprGems[1].SetImage(imgGems[1]);
+	sprGems[2].SetImage(imgGems[2]);
+	sprGems[3].SetImage(imgGems[3]);
+	sprGems[4].SetImage(imgGems[4]);
+	sprGems[5].SetImage(imgGems[5]);
+	sprGems[6].SetImage(imgGems[6]);
 
 	for (int i = 0; i < 7; ++i)
 	{
-	    posX[i] = 800 / 2 - (65 * 7) / 2 + i * 65;
+	    sprGems[i].SetX(std::floor(800 / 2 - (65 * 7) / 2 + i * 65));
 	}
 
 	animationCurrentStep = 0;
@@ -28,7 +39,7 @@ public:
 	posFinalY = 265;
     }
 
-    void draw(){
+    void draw(DrawingManager & dMngr){
 	if(animationCurrentStep < 7 * 5 + animationTotalSteps)
 	    ++animationCurrentStep;
 
@@ -38,20 +49,23 @@ public:
 	    if(composedStep < 0) continue;
 
 	    if(composedStep < animationTotalSteps){
-		imgGems[i] -> draw(posX[i], 
-				   eqMovOut((float) composedStep, 600.0, (float) posFinalY - 600., (float) animationTotalSteps), 
-				   2.);
+		sprGems[i].SetY(eqMovOut((float) composedStep, 
+					 600.0, 
+					 (float) posFinalY - 600., 
+					 (float) animationTotalSteps));
 	    }else{
-		imgGems[i] -> draw(posX[i], posFinalY, 2);
+		sprGems[i].SetY(posFinalY);
 	    }
+
+	    dMngr.Draw(&sprGems[i], 2);
 	}
     }
 
     // past time, begining pos, change, duration
     float eqMovOut(float t, float b, float c, float d) {
 	/* //quad
-	t/=d;
-	return -c *(t)*(t-2) + b;
+	   t/=d;
+	   h	return -c *(t)*(t-2) + b;
 	//*/
 
 	// cubic
@@ -60,7 +74,8 @@ public:
     };
     
 private:
-    boost::shared_ptr<Gosu::Image> imgGems[7];
+    sf::Image imgGems[7];
+    sf::Sprite sprGems[7];
 
     int posX[7], posFinalY;
     

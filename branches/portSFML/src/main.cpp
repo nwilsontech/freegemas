@@ -29,8 +29,8 @@
 
 int main(int argc, char *argv[])
 {
+
 #ifndef WIN32
-//    bind_textdomain_codeset ("freegemas", "UTF-8");
     setlocale(LC_ALL, "");
     bindtextdomain("freegemas", "lang" );
     textdomain("freegemas");
