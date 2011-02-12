@@ -54,7 +54,8 @@ private:
     // Menu configuration
 
     int menuSelectedOption;
-    vector<pair<sf::String, string> > menuOptions;
+    vector<string> menuOptions;
+    vector<sf::String> menuImages, menuShadows;
 
     void optionChosen();
     

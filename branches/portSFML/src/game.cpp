@@ -10,7 +10,7 @@
 
 // #include "resManager.h"
 
-Game::Game () : BaseWindow(800, 600, "FreeGemas v0.4") {
+Game::Game () : BaseWindow(800, 600, "FreeGemas v0.4"), showingCursor(false) {
     lDEBUG << Log::CON("Game");
     
     imCursor.LoadFromFile("media/handCursor.png");
@@ -27,7 +27,11 @@ void Game::update(){
 }
 
 void Game::draw(DrawingManager & dMngr){
-    dMngr.Draw(&spCursor, 100);
+    if(!showingCursor){
+	showingCursor = true;
+	dMngr.Draw(&spCursor, 100);
+    }
+
     currentState -> draw(dMngr);
 }
 

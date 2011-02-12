@@ -18,6 +18,7 @@ public:
     void assignTarget(sf::RenderWindow * targetWindow_);
     void Draw(sf::Drawable * obj, float z);
     void commit();
+    void clear();
 
 private:
     sf::RenderWindow * targetWindow;
@@ -39,13 +40,14 @@ public:
     void show();
     void close();    
 
+    DrawingManager drawingManager;
 private:
     int width, height;
     string caption;
     float fps;
 
     sf::RenderWindow targetWindow;
-    DrawingManager drawingManager;
+
 };
 
 

@@ -20,7 +20,9 @@ void DrawingManager::commit(){
 	    ++it1;
 	}
     }
-    
+}
+
+void DrawingManager::clear(){
     elementsToDraw.clear();
 }
 
@@ -39,6 +41,7 @@ int BaseWindow::mouseX() const{ return targetWindow.GetInput().GetMouseX(); }
 int BaseWindow::mouseY() const{ return targetWindow.GetInput().GetMouseY(); }
 
 void BaseWindow::close(){
+    drawingManager.clear();
     targetWindow.Close();
 }
     

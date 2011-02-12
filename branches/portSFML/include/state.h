@@ -49,6 +49,7 @@ protected:
 
     **/
     Game * parent;
+    bool drawingDeclared;
 public:
     /**
        @brief Constructor - Crea un state.

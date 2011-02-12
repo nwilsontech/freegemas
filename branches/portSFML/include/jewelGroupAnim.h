@@ -31,7 +31,7 @@ public:
 
 	for (int i = 0; i < 7; ++i)
 	{
-	    sprGems[i].SetX(std::floor(800 / 2 - (65 * 7) / 2 + i * 65));
+	    sprGems[i].SetPosition(std::floor(800 / 2 - (65 * 7) / 2 + i * 65), 600);
 	}
 
 	animationCurrentStep = 0;
@@ -39,7 +39,7 @@ public:
 	posFinalY = 265;
     }
 
-    void draw(DrawingManager & dMngr){
+    void update(){
 	if(animationCurrentStep < 7 * 5 + animationTotalSteps)
 	    ++animationCurrentStep;
 
@@ -56,7 +56,11 @@ public:
 	    }else{
 		sprGems[i].SetY(posFinalY);
 	    }
+	}
+    }
 
+    void draw(DrawingManager & dMngr){
+	for(int i = 0; i < 7; ++i){
 	    dMngr.Draw(&sprGems[i], 2);
 	}
     }

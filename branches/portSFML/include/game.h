@@ -71,6 +71,7 @@ private:
 
     sf::Sprite spCursor;
     sf::Image imCursor;
+    bool showingCursor;
 };
 
 #endif /* _JUEGO_H_ */
