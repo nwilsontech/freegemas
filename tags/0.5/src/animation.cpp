@@ -147,8 +147,8 @@ void Animacion::reverse(){
 
 }
 
-void Animacion::end() { time = duracion + esperaInicial; update(false); };
-void Animacion::init() { time = 0; };
+void Animacion::end() { time = duracion + esperaInicial; update(false); }
+void Animacion::init() { time = 0; }
 bool Animacion::finished(){ 
 /*
     int j = 0;

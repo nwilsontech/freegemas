@@ -29,7 +29,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 
 $(OUTPUT): $(OBJS)
 	@echo "Linking binary..."
-	$(CXX) $(LDFLAGS) -o $@ $^ $(LIBS) 
+	@$(CXX) $(LDFLAGS) -o $@ $^ $(LIBS) 
 	@echo "Done."
 
 libgosu:
