@@ -28,6 +28,8 @@
 
 #include "log.h"
 #include "State.h"
+#include "JewelGroupAnim.h"
+
 #include <SFML/Graphics.hpp>
 
 #include <string>
@@ -78,7 +80,7 @@ private:
     sf::Font menuFont;
 
     /// Class for the animation of the decorating jewels
-    //JewelGroupAnim jewelAnim;
+    JewelGroupAnim jewelGroupAnim;
 
     /// Current highlighted option
     int menuSelectedOption;

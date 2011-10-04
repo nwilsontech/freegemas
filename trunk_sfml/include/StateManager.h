@@ -33,12 +33,19 @@
 
 #include <SFML/Graphics.hpp>
 
+// Forward declaration of the sprite
 class State;
+
+/**
+ * Represents a drawing queue, where the Drawable objects will be drawn
+ * depending on their depth (which is the key of the map).
+ */
 
 class DrawingQueue : private std::multimap<float, const sf::Drawable &>{
     friend class StateManager;
 
 public:
+    /// Adds a new drawable element to the drawing queue
     void Draw(float z, const sf::Drawable & object){
         insert(std::pair<float, const sf::Drawable &>(z, object));
     }
@@ -50,24 +57,45 @@ typedef std::multimap<float, const sf::Drawable &>::const_iterator DrawingQueueI
 /// Typedef for shared pointer to State
 typedef std::tr1::shared_ptr<State> StatePointer;
  
+/**
+ * Manages the different states, loading and unloading them using a stack.
+ *
+ * It uses a queue of operations, so multiple states can be loaded and unloaded
+ * at the same time. It also handles the rendering window.
+ */
+
 class StateManager{
 
 public:
+    /// Creates a new StateManager. It also creates the rendering window
+    /// with the provided properties.
     StateManager(int width, int height, std::string title, 
                  bool fullscreen = false, double fps = 60);
-
+    
+    /// Runs the manager, showing the window and starting the game loop
     void run();
+
+    /// Unloads the active state and loads the new one
     void changeState(StatePointer state);
+
+    /// Loads and places a new state at the top of the states stack
     void pushState(StatePointer state);
+
+    /// Unloads and pops the state at the top of the stack
     void popState();
+
+    /// Unloads all of the states
     void popAllStates();
 
+    /// Frees resources and quits 
     ~StateManager();
 
 private:
 
+    /// Launches the logical stage of the loaded states
     void update();
 
+    /// Launches the drawing stage of the loaded states
     void draw();
 
     /// Actual window where everything happens
@@ -82,21 +110,21 @@ private:
     /// Window's title
     std::string title;
 
-    // Window should be fullscreen or not
+    /// Window should be fullscreen or not
     bool fullscreen;
 
-    // Update interval
+    /// Update interval
     double fps;
 
     bool isRunning;
 
-    /// Typedef for const iterator for vector of StatePointers
+    /// Iterator of states (points thereof)
     typedef std::vector<StatePointer>::const_iterator StateIt;
 
-    /// Typedef for const reverse iterator for vector of StatePointers
+    /// Reverse iterator of states
     typedef std::vector<StatePointer>::const_reverse_iterator StateRevIt;
 
-    /// Set of states
+    /// Stack of states
     std::vector<StatePointer> states;
 
     /// Temporary state counter
@@ -124,8 +152,6 @@ private:
     
     /// Performs all pending operations
     void performOperations();
-    
 };
-
 
 #endif /* _STATEMANAGER_H_ */

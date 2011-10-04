@@ -38,57 +38,83 @@ StateManager::StateManager (int width, int height, std::string title,
 }
 
 void StateManager::run(){
+
+    // Creates the window
     actualWindow.Create(sf::VideoMode(width, height), title); 
+
+    // Sets the frame rate
     actualWindow.SetFramerateLimit(fps);
 
+    // Starts the game loop
     while (actualWindow.IsOpened())
     {
 
+        // Perform push and pop operations over the stack of states
         performOperations();
 
         // Process events
         sf::Event Event;
+
+        // Iterate all of the events
         while (actualWindow.GetEvent(Event))
         {
+            // If window gets closed
             if (Event.Type == sf::Event::Closed){
+                
+                // close the app
                 actualWindow.Close();
-            }else if(!states.empty()){
+
+            }
+            // Else, redirect all of the events to the current (topmost) state
+            else if(!states.empty()){
                 states.back() -> event(Event);
             }
         }
 
-        actualWindow.Clear();
-
+        // Perform logical stage
         update();
 
+        // Clear the window
+        actualWindow.Clear();
+
+        // Perform graphical stage
         draw();
 
+        // Display everything on screen
         actualWindow.Display();        
     }
 }
 
 
 void StateManager::update(){
+
+    // If there are states
     if(!states.empty()){
-        StateRevIt it, itEnd = states.rend();
-        bool covered = false;
-        for(it = states.rbegin(); it != itEnd; ++it){
-            (*it) -> update(covered);
-            covered = true;
+
+        // Initialise iterators
+        StateRevIt it = states.rbegin();
+        StateRevIt itEnd = states.rend();
+
+        (*it++) -> update(false);
+        
+        for( ; it != itEnd; ++it){
+            (*it) -> update(true);
         }
     }
 }
 
 
 void StateManager::draw(){
-    DrawingQueue queue;
-    DrawingQueueIterator qIt;
-
     if(!states.empty()){
-        StateIt it, itEnd = states.end();
+        DrawingQueue queue;
+        DrawingQueueIterator qIt;
+
+        StateRevIt it;
+        StateRevIt itEnd = states.rend();
+
         bool covered = false;
 
-        for(it = states.begin(); it != itEnd; ++it){
+        for(it = states.rbegin(); it != itEnd; ++it){
             queue.clear();
             (*it) -> draw(covered, queue);
             

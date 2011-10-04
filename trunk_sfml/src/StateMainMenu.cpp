@@ -11,6 +11,8 @@ T clamp(T v, R bottom, R top){
 }
 
 void StateMainMenu::loadResources (){
+    jewelGroupAnim.loadResources();
+
     // Load background image
     imgBackground.LoadFromFile("media/stateMainMenu/mainMenuBackground.png");
     spBackground.SetImage (imgBackground);
@@ -113,6 +115,7 @@ void StateMainMenu::draw (bool isCovered, DrawingQueue& queue){
     if (isCovered) return;
 
     queue.Draw(0, spBackground);
+    jewelGroupAnim.draw(queue);
 
     int logoAlfa = clamp( (int)(255 * (float)animationCurrentStep / animationLogoSteps), 0, 255);
     spLogo.SetColor(sf::Color(255, 255, 255, logoAlfa));
