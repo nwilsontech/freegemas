@@ -7,8 +7,8 @@
 #include <cwchar>
 #include <cerrno>
 
-// This is from http://stackoverflow.com/questions/7141260/compare-stdwstring-and-stdstring/7159944#7159944
-// Real worker
+// This is from 
+// http://stackoverflow.com/questions/7141260/compare-stdwstring-and-stdstring/7159944#7159944
 std::wstring get_wstring(const std::string & s)
 {
     const char * cs = s.c_str();

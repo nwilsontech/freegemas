@@ -1,4 +1,6 @@
 #include "StateMainMenu.h"
+#include "StateHowToPlay.h"
+
 #include "i18n.h"
 
 template <typename T, typename R>
@@ -15,11 +17,13 @@ void StateMainMenu::loadResources (){
 
     // Load image for logo
     imgLogo.LoadFromFile("media/stateMainMenu/mainMenuLogo.png");
+    imgLogo.SetSmooth(false);
     spLogo.SetImage (imgLogo);
     spLogo.SetPosition(86, 0);
 
     // Load highlight
     imgHighl.LoadFromFile("media/stateMainMenu/menuHighlight.png");
+    imgHighl.SetSmooth(false);
     spHighl.SetImage(imgHighl);
 
     // Load font for menu
@@ -77,7 +81,7 @@ void StateMainMenu::loadResources (){
 
 void StateMainMenu::event (sf::Event theEvent){
     if (theEvent.Type == sf::Event::KeyPressed and theEvent.Key.Code == sf::Key::Space){
-        //pManager -> pushState(StatePointer(new State2()));
+        pManager -> pushState(StatePointer(new StateHowToPlay()));
         lDEBUG << "WUT";
     }
 
@@ -106,6 +110,8 @@ void StateMainMenu::update(bool isCovered){
 }
 
 void StateMainMenu::draw (bool isCovered, DrawingQueue& queue){
+    if (isCovered) return;
+
     queue.Draw(0, spBackground);
 
     int logoAlfa = clamp( (int)(255 * (float)animationCurrentStep / animationLogoSteps), 0, 255);
