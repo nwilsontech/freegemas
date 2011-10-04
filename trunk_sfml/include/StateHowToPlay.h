@@ -22,7 +22,6 @@
  * 02110-1301, USA.
  */
 
-
 #ifndef _STATEHOWTOPLAY_H_
 #define _STATEHOWTOPLAY_H_
 
@@ -38,6 +37,9 @@ using namespace std;
 class StateHowToPlay : public State{
 
 public:
+    StateHowToPlay();
+    ~StateHowToPlay();
+
     void loadResources();
     void event(sf::Event theEvent);
     void update(bool isCovered);
@@ -45,31 +47,13 @@ public:
 
 private:
 
-    /*
-    /// Possible states of the transition
-    enum transitionState{ TransitionIn,
-			  Active,
-			  TransitionOut };
-
-    /// Current transition state
-    transitionState currentTransitionState;
-
-    /// Current step of the animation
-    int animationCurrentStep;
-
-    /// Logo animation's total steps
-    int animationLogoSteps;
-
-    /// General animation's total steps
-    int animationTotalSteps;
-			  
-    //*/
-
     /// Image for the background
     sf::Image imgBackground;
+
+    /// Sprite for the background image
     sf::Sprite spBackground;
 
-    // Font for the title
+    /// Font for the title
     sf::Font fontTitle;
 
     // Font for the subtitle

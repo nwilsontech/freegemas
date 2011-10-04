@@ -34,8 +34,10 @@ int main(int argc, char *argv[])
     bindtextdomain("freegemas", "lang" );
     textdomain("freegemas");    
 
+    lDEBUG << "Setting game...";
     Game game;
+    lDEBUG << "Game set, starting...";
     game.go();
-
+    lDEBUG << "Game ended";
     return 0;
 }

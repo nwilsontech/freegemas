@@ -1,6 +1,14 @@
 #include "StateHowToPlay.h"
 #include "i18n.h"
 
+StateHowToPlay::StateHowToPlay(){
+    lDEBUG << Log::CON("StateHowToPlay");
+}
+
+StateHowToPlay::~StateHowToPlay(){
+    lDEBUG << Log::DES("StateHowToPlay");
+}
+
 void StateHowToPlay::loadResources(){
     bodyText = L"";
     bodyText += _("The objective of the game is to swap one gem with an adjacent gem to form a horizontal or vertical chain of three or more gems.");

@@ -24,7 +24,6 @@
  * 02110-1301, USA.
  */
 
-
 #ifndef _LOG_H_
 #define _LOG_H_
 

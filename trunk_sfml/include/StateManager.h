@@ -67,10 +67,11 @@ typedef std::tr1::shared_ptr<State> StatePointer;
 class StateManager{
 
 public:
-    /// Creates a new StateManager. It also creates the rendering window
-    /// with the provided properties.
-    StateManager(int width, int height, std::string title, 
-                 bool fullscreen = false, double fps = 60);
+    /// Creates a new StateManager.
+    StateManager();
+
+    /// Sets the window to be working on
+    void setWindow(sf::RenderWindow * w);
     
     /// Runs the manager, showing the window and starting the game loop
     void run();
@@ -99,22 +100,7 @@ private:
     void draw();
 
     /// Actual window where everything happens
-    sf::RenderWindow actualWindow;
-
-    /// Window's width
-    int width;
-    
-    /// Window's height
-    int height;
-
-    /// Window's title
-    std::string title;
-
-    /// Window should be fullscreen or not
-    bool fullscreen;
-
-    /// Update interval
-    double fps;
+    sf::RenderWindow * actualWindow;
 
     bool isRunning;
 

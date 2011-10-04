@@ -27,26 +27,25 @@
 #include "State.h"
 #include "log.h"
 
-StateManager::StateManager (int width, int height, std::string title,
-                            bool fullscreen, double fps)
-    : width (width), height (height), title(title),
-      fullscreen (fullscreen), fps(fps), isRunning(false)
+StateManager::StateManager ()
 {
 
     lDEBUG << Log::CON("StateManager");
     numStates = 0;
+    actualWindow = 0;
+}
+
+void StateManager::setWindow (sf::RenderWindow * w){
+    actualWindow = w;
 }
 
 void StateManager::run(){
-
-    // Creates the window
-    actualWindow.Create(sf::VideoMode(width, height), title); 
-
-    // Sets the frame rate
-    actualWindow.SetFramerateLimit(fps);
+    if (actualWindow == 0){
+        return;
+    } 
 
     // Starts the game loop
-    while (actualWindow.IsOpened())
+    while (actualWindow -> IsOpened())
     {
 
         // Perform push and pop operations over the stack of states
@@ -56,13 +55,13 @@ void StateManager::run(){
         sf::Event Event;
 
         // Iterate all of the events
-        while (actualWindow.GetEvent(Event))
+        while (actualWindow -> GetEvent(Event))
         {
             // If window gets closed
             if (Event.Type == sf::Event::Closed){
                 
                 // close the app
-                actualWindow.Close();
+                actualWindow -> Close();
 
             }
             // Else, redirect all of the events to the current (topmost) state
@@ -75,14 +74,16 @@ void StateManager::run(){
         update();
 
         // Clear the window
-        actualWindow.Clear();
+        actualWindow -> Clear();
 
         // Perform graphical stage
         draw();
 
         // Display everything on screen
-        actualWindow.Display();        
+        actualWindow -> Display();        
     }
+
+    popAllStates();
 }
 
 
@@ -119,7 +120,7 @@ void StateManager::draw(){
             (*it) -> draw(covered, queue);
             
             for (qIt = queue.begin(); qIt != queue.end(); ++qIt){
-                actualWindow.Draw(qIt -> second);
+                actualWindow -> Draw(qIt -> second);
             }
             covered = true;
         }

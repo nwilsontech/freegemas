@@ -22,9 +22,8 @@
  * 02110-1301, USA.
  */
 
-
-#ifndef _STATE1_H_
-#define _STATE1_H_
+#ifndef _STATEMAINMENU_H_
+#define _STATEMAINMENU_H_
 
 #include "log.h"
 #include "State.h"
@@ -40,6 +39,9 @@ using namespace std;
 class StateMainMenu : public State{
 
 public:
+    StateMainMenu();
+    ~StateMainMenu();
+
     void loadResources();
     void event(sf::Event theEvent);
     void update(bool isCovered);
@@ -108,4 +110,4 @@ private:
 
 };
 
-#endif /* _STATE1_H_ */
+#endif

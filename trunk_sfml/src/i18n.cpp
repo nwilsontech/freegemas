@@ -1,6 +1,6 @@
 #include "i18n.h"
+#include "log.h"
 
-#include <string>
 #include <vector>
 #include <cassert>
 #include <cstdlib>
@@ -16,7 +16,7 @@ std::wstring get_wstring(const std::string & s)
 
     if (wn == size_t(-1))
     {
-        //std::cout << "Error in mbsrtowcs(): " << errno << std::endl;
+        lERROR << "Error in mbsrtowcs(): " << errno;
         return L"";
     }
 
@@ -25,7 +25,7 @@ std::wstring get_wstring(const std::string & s)
 
     if (wn_again == size_t(-1))
     {
-        //std::cout << "Error in mbsrtowcs(): " << errno << std::endl;
+        lERROR << "Error in mbsrtowcs(): " << errno;
         return L"";
     }
 

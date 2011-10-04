@@ -22,7 +22,6 @@
  * 02110-1301, USA.
  */
 
-
 #ifndef _STATE1_H_
 #define _STATE1_H_
 

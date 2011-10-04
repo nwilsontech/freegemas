@@ -10,6 +10,14 @@ T clamp(T v, R bottom, R top){
     return v;
 }
 
+StateMainMenu::StateMainMenu(){
+    lDEBUG << Log::CON("StateMainMenu");
+}
+
+StateMainMenu::~StateMainMenu(){
+    lDEBUG << Log::DES("StateMainMenu");
+}
+
 void StateMainMenu::loadResources (){
     jewelGroupAnim.loadResources();
 
@@ -79,6 +87,8 @@ void StateMainMenu::loadResources (){
 
     menuXStart = 0;
     menuXEnd = 800;
+
+    currentTransitionState = TransitionIn;
 }
 
 void StateMainMenu::event (sf::Event theEvent){
@@ -115,6 +125,7 @@ void StateMainMenu::draw (bool isCovered, DrawingQueue& queue){
     if (isCovered) return;
 
     queue.Draw(0, spBackground);
+
     jewelGroupAnim.draw(queue);
 
     int logoAlfa = clamp( (int)(255 * (float)animationCurrentStep / animationLogoSteps), 0, 255);

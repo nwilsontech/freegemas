@@ -1,5 +1,5 @@
 /**
- * @file inter.h
+ * @file i18n.h
  * 
  * @author José Tomás Tocino García
  * @date 2011
@@ -28,7 +28,6 @@
 #include <libintl.h>
 #include <locale.h>
 #include <string>
-#include <iterator>
 
 std::wstring _(const char * c);
 

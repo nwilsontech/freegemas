@@ -25,13 +25,33 @@
 #ifndef _GAME_H_
 #define _GAME_H_
 
+#include <SFML/Graphics.hpp>
+
 #include "StateManager.h"
 
-class Game : private StateManager{
+/**
+ * Main control class. It launches the window, the state manager and the initial state
+ */
+
+class Game {
 
 public:
+    /// Creates the basic window and initialises the first state
     Game();
+
+    /// Starts the game loop
     void go();
+
+private:
+
+    // Window where everything happens
+    sf::RenderWindow actualWindow;
+
+    /// State Manager
+    StateManager stateManager;
+
+    /// Image for the icon of the app
+    sf::Image appIcon;
 };
 
 #endif /* _GAME_H_ */
