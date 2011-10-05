@@ -33,6 +33,7 @@ StateManager::StateManager ()
     lDEBUG << Log::CON("StateManager");
     numStates = 0;
     actualWindow = 0;
+    shouldQuit = false;
 }
 
 void StateManager::setWindow (sf::RenderWindow * w){
@@ -81,9 +82,12 @@ void StateManager::run(){
 
         // Display everything on screen
         actualWindow -> Display();        
-    }
 
-    popAllStates();
+        if (shouldQuit){
+            lDEBUG << Log::cAmar << "I WAS TOLD TO QUIT";
+            actualWindow -> Close();
+        }
+    }
 }
 
 
@@ -150,8 +154,15 @@ void StateManager::popState(){
     --numStates;
 }
 
+void StateManager::popAndQuit(){
+    lDEBUG << Log::cRojo << "POP 'EM ALL AND QUIT!";
+    popAllStates();
+    lDEBUG << Log::cAzul << "SHOULD BE POPPED";
+    shouldQuit = true;
+}
+
 void StateManager::popAllStates(){
-    lDEBUG << "Pop all states requested";
+    lDEBUG << "Pop all states requested (" << numStates << " states)";
 
     while(numStates > 0){
         popState();

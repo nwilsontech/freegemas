@@ -1,5 +1,6 @@
 #include "StateMainMenu.h"
 #include "StateHowToPlay.h"
+#include "ResourceManager.h"
 
 #include "i18n.h"
 
@@ -22,23 +23,15 @@ void StateMainMenu::loadResources (){
     jewelGroupAnim.loadResources();
 
     // Load background image
-    imgBackground.LoadFromFile("media/stateMainMenu/mainMenuBackground.png");
-    spBackground.SetImage (imgBackground);
+    spBackground.SetImage (ResMgr -> getImage("media/stateMainMenu/mainMenuBackground.png"));
 
     // Load image for logo
-    imgLogo.LoadFromFile("media/stateMainMenu/mainMenuLogo.png");
-    imgLogo.SetSmooth(false);
-    spLogo.SetImage (imgLogo);
+    spLogo.SetImage (ResMgr -> getImage("media/stateMainMenu/mainMenuLogo.png"));
     spLogo.SetPosition(86, 0);
 
     // Load highlight
-    imgHighl.LoadFromFile("media/stateMainMenu/menuHighlight.png");
-    imgHighl.SetSmooth(false);
-    spHighl.SetImage(imgHighl);
+    spHighl.SetImage(ResMgr -> getImage("media/stateMainMenu/menuHighlight.png"));
 
-    // Load font for menu
-    menuFont.LoadFromFile("media/fuenteMenu.ttf");
-    
     // Animation values
     animationTotalSteps = 30;
     animationLogoSteps = 30;
@@ -46,22 +39,23 @@ void StateMainMenu::loadResources (){
 
     // Set menu options 
     MenuOption m;
+    sf::Font & menuFont = ResMgr -> getFont("media/fuenteMenu.ttf", 30);
 
     // Create menu options
     m.targetState = "stateGame";
-    m.text = sf::String (_("Timetrial mode"), menuFont, 30);
+    m.text = sf::String (_("Timetrial mode"), menuFont);
     m.shadow = m.text;
     m.shadow.SetColor(sf::Color(0,0,0,125));
     menuOptions.push_back(m);
 
     m.targetState = "stateHowToPlay";
-    m.text = sf::String (_("How to play?"), menuFont, 30);
+    m.text = sf::String (_("How to play?"), menuFont);
     m.shadow = m.text;
     m.shadow.SetColor(sf::Color(0,0,0,125));
     menuOptions.push_back(m);
 
     m.targetState = "stateQuit";
-    m.text = sf::String (_("Exit"), menuFont, 30);
+    m.text = sf::String (_("Exit"), menuFont);
     m.shadow = m.text;
     m.shadow.SetColor(sf::Color(0,0,0,125));
     menuOptions.push_back(m);
@@ -92,9 +86,22 @@ void StateMainMenu::loadResources (){
 }
 
 void StateMainMenu::event (sf::Event theEvent){
-    if (theEvent.Type == sf::Event::KeyPressed and theEvent.Key.Code == sf::Key::Space){
-        pManager -> pushState(StatePointer(new StateHowToPlay()));
-        lDEBUG << "WUT";
+
+    // If a key is pressed
+    if (theEvent.Type == sf::Event::KeyPressed){
+
+        // If enter is pressed, go and launch the highlighted option
+        if (theEvent.Key.Code == sf::Key::Return){
+
+            optionChosen();
+
+        } else if (theEvent.Key.Code == sf::Key::Up){
+
+            // Ninja technique to easily process wrapping options
+            menuSelectedOption = (menuSelectedOption + menuOptions.size() - 1) % menuOptions.size();
+        } else if (theEvent.Key.Code == sf::Key::Down){
+            menuSelectedOption = (menuSelectedOption + menuOptions.size() + 1) % menuOptions.size();
+        }
     }
 
     else if(theEvent.Type == sf::Event::MouseMoved){
@@ -106,7 +113,22 @@ void StateMainMenu::event (sf::Event theEvent){
     }
 }
 
+void StateMainMenu::optionChosen(){
+    std::string nextState = menuOptions[menuSelectedOption].targetState;
+
+    if (nextState == "stateGame"){
+
+    } else if (nextState == "stateHowToPlay"){
+        pManager -> pushState(StatePointer(new StateHowToPlay()));
+    } else if (nextState == "stateQuit"){
+        pManager -> popAndQuit();
+    }
+
+}
+
 void StateMainMenu::update(bool isCovered){
+    if (isCovered) return;
+
     if(currentTransitionState == TransitionIn){
         animationCurrentStep ++;
 
@@ -136,8 +158,6 @@ void StateMainMenu::draw (bool isCovered, DrawingQueue& queue){
         queue.Draw(3, menuOptions[i].text);
         queue.Draw(2.5, menuOptions[i].shadow);
     }
-
-    //jewelAnim . draw();
 
     spHighl.SetPosition(266, menuYStart + 2 + menuSelectedOption * menuYGap);
     queue.Draw(2, spHighl);

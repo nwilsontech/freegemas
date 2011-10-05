@@ -36,3 +36,4 @@ obj/i18n.o: include/i18n.h
 obj/Game.o: include/Game.h include/StateManager.h include/StateMainMenu.h
 obj/Animation.o: include/Animation.h
 obj/AnimationEquations.o: include/Animation.h
+obj/ResourceManager.o: include/ResourceManager.h include/log.h

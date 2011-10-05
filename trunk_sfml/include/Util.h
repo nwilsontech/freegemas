@@ -1,5 +1,5 @@
 /**
- * @file StateHowToPlay.h
+ * @file Util.h
  * 
  * @author José Tomás Tocino García
  * @date 2011
@@ -22,39 +22,21 @@
  * 02110-1301, USA.
  */
 
-#ifndef _STATEHOWTOPLAY_H_
-#define _STATEHOWTOPLAY_H_
 
-#include "log.h"
-#include "State.h"
-#include <SFML/Graphics.hpp>
+#ifndef _UTIL_H_
+#define _UTIL_H_
 
 #include <string>
-#include <vector>
+#include <sstream>
 
-using namespace std;
+template <typename value_type>
+std::string to_string( const value_type & obj )
+{
+    std::ostringstream os;
+    os << std::fixed;
+    os << obj;
 
-class StateHowToPlay : public State{
+    return os.str();
+}
 
-public:
-    StateHowToPlay();
-    ~StateHowToPlay();
-
-    void loadResources();
-    void event(sf::Event theEvent);
-    void update(bool isCovered);
-    void draw(bool isCovered, DrawingQueue& queue);
-
-private:
-
-    /// Sprite for the background image
-    sf::Sprite spBackground;
-
-    sf::String strTitle, strTitleShadow;
-    sf::String strExitMessage, strExitMessageShadow;
-
-    sf::String strBodyText;
-    std::wstring bodyText;
-};
-
-#endif /* _STATE1_H_ */
+#endif /* _UTIL_H_ */

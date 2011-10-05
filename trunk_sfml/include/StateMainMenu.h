@@ -66,20 +66,14 @@ private:
     /// General animation's total steps
     int animationTotalSteps;
 			  
-    /// Image for the background
-    sf::Image imgBackground;
+    /// Sprite for the background
     sf::Sprite spBackground;
 
-
-    /// Image for the logo
-    sf::Image imgLogo;
+    /// Sprite for the logo
     sf::Sprite spLogo;
 
-    /// Image for the higlight of the menu entry
-    sf::Image imgHighl;
+    /// Sprite for the higlight of the menu entry
     sf::Sprite spHighl;
-
-    sf::Font menuFont;
 
     /// Class for the animation of the decorating jewels
     JewelGroupAnim jewelGroupAnim;
@@ -88,10 +82,6 @@ private:
     int menuSelectedOption;
 
     /// List of menu options.
-    /// 
-    /// The first element of the pair represents the caption of the menu
-    /// entry. The second element holds the name of the state to load when the
-    /// user presses that menu option.
     struct MenuOption{
         string targetState;
         sf::String text, shadow;        

@@ -88,6 +88,9 @@ public:
     /// Unloads all of the states
     void popAllStates();
 
+    /// Unloads all of the states and then quits
+    void popAndQuit();
+
     /// Frees resources and quits 
     ~StateManager();
 
@@ -102,7 +105,7 @@ private:
     /// Actual window where everything happens
     sf::RenderWindow * actualWindow;
 
-    bool isRunning;
+    bool shouldQuit;
 
     /// Iterator of states (points thereof)
     typedef std::vector<StatePointer>::const_iterator StateIt;

@@ -125,8 +125,6 @@ protected:
 
 };
 
-
-
 #define lDEBUG Log().Get(logDEBUG)
 #define lERROR Log().Get(logERROR)
 
