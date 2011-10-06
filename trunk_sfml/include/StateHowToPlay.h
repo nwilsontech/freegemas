@@ -53,8 +53,9 @@ private:
     sf::String strTitle, strTitleShadow;
     sf::String strExitMessage, strExitMessageShadow;
 
-    sf::String strBodyText;
+
     std::wstring bodyText;
+    std::vector<sf::String> strBodyLines;
 };
 
 #endif /* _STATE1_H_ */

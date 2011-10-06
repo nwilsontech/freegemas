@@ -15,7 +15,7 @@ all: $(OUTPUT)
 SRCDIR := src
 OBJDIR := obj
 
-SRCS := $(notdir $(shell ls -t $(SRCDIR)/*.cpp))
+SRCS := $(notdir $(shell ls $(SRCDIR)/*.cpp))
 OBJS := $(addprefix $(OBJDIR)/, $(addsuffix .o,$(basename $(SRCS))))
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
@@ -27,13 +27,27 @@ $(OUTPUT): $(OBJS)
 clean:
 	rm $(OBJS) $(OUTPUT) *~ -rf
 
-obj/StateManager.o: include/StateManager.h include/State.h
-obj/log.o: include/log.h
-obj/main.o: include/StateManager.h include/State.h include/Game.h include/log.h include/i18n.h
-obj/StateMainMenu.o: include/State.h include/StateMainMenu.h include/log.h include/i18n.h include/JewelGroupAnim.h include/StateHowToPlay.h
-obj/StateHowToPlay.o: include/State.h include/StateHowToPlay.h include/log.h include/i18n.h
-obj/i18n.o: include/i18n.h
-obj/Game.o: include/Game.h include/StateManager.h include/StateMainMenu.h
-obj/Animation.o: include/Animation.h
-obj/AnimationEquations.o: include/Animation.h
-obj/ResourceManager.o: include/ResourceManager.h include/log.h
+# Generated using
+# gcc -MM -I. -Iinclude src/* | sed 's/^\([a-zA-Z]\+.o\)/obj\/\1/g'
+
+obj/Animation.o: src/Animation.cpp include/Animation.h include/log.h
+obj/AnimationEquations.o: src/AnimationEquations.cpp include/Animation.h
+obj/Game.o: src/Game.cpp include/Game.h include/StateManager.h \
+	include/StateMainMenu.h include/log.h include/State.h \
+	include/JewelGroupAnim.h include/Animation.h
+obj/i18n.o: src/i18n.cpp include/i18n.h include/log.h
+obj/log.o: src/log.cpp include/log.h
+obj/main.o: src/main.cpp include/i18n.h include/log.h include/Game.h \
+	include/StateManager.h
+obj/ResourceManager.o: src/ResourceManager.cpp include/ResourceManager.h \
+	include/log.h include/Util.h
+obj/StateHowToPlay.o: src/StateHowToPlay.cpp include/StateHowToPlay.h \
+	include/log.h include/State.h include/StateManager.h include/i18n.h \
+	include/ResourceManager.h include/Util.h
+obj/StateMainMenu.o: src/StateMainMenu.cpp include/StateMainMenu.h \
+	include/log.h include/State.h include/StateManager.h \
+	include/JewelGroupAnim.h include/Animation.h include/StateHowToPlay.h \
+	include/ResourceManager.h include/i18n.h
+obj/StateManager.o: src/StateManager.cpp include/StateManager.h \
+	include/State.h include/StateManager.h include/log.h
+obj/Util.o: src/Util.cpp include/Util.h include/log.h

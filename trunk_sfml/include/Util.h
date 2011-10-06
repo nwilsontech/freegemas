@@ -26,11 +26,13 @@
 #ifndef _UTIL_H_
 #define _UTIL_H_
 
+#include <vector>
 #include <string>
 #include <sstream>
+#include <SFML/Graphics.hpp>
 
 template <typename value_type>
-std::string to_string( const value_type & obj )
+std::string to_string ( const value_type & obj )
 {
     std::ostringstream os;
     os << std::fixed;
@@ -39,4 +41,8 @@ std::string to_string( const value_type & obj )
     return os.str();
 }
 
-#endif /* _UTIL_H_ */
+
+std::vector<sf::String> formatText(std::wstring &bodyText, const sf::Font& font, 
+                                   int width);
+#endif /* _UTIL_HH_ */
+ 
