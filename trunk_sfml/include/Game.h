@@ -39,6 +39,9 @@ public:
     /// Creates the basic window and initialises the first state
     Game();
 
+    /// Game destructor
+    ~Game();
+
     /// Starts the game loop
     void go();
 

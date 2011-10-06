@@ -1,7 +1,11 @@
 #include "Game.h"
 #include "StateMainMenu.h"
 
+#include "log.h"
+#include "ResourceManager.h"
+
 Game::Game(){
+    lDEBUG << Log::CON("Game");
     // Create the window
     actualWindow.Create(sf::VideoMode(800, 600), "Freegemas"); 
 
@@ -17,6 +21,11 @@ Game::Game(){
 
     // Push the first state
     stateManager.pushState(StatePointer(new StateMainMenu()));
+}
+
+Game::~Game(){
+    lDEBUG << Log::DES("Game");
+    ResourceManager::delInstance();
 }
 
 void Game::go(){

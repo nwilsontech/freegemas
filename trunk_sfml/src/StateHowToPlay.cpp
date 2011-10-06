@@ -61,10 +61,23 @@ void StateHowToPlay::loadResources(){
         // Increment vertical acumulator
         acumHeight += strBodyLines[i].GetSize() + 7;
     }
+
+    // The shadows are just a copy of the actual lines...
+    strBodyLinesShadow = strBodyLines;
+
+    // ...but placed 2 pixels down, and black
+    for (size_t i = 0; i < strBodyLinesShadow.size(); i++){
+        strBodyLinesShadow[i].Move(0, 2);
+        strBodyLinesShadow[i].SetColor(sf::Color(0, 0, 0, 128));
+    }
 }
 
 void StateHowToPlay::event(sf::Event theEvent){
+
+    // Shut the state if escape or left mouse button are pressed
     if (theEvent.Type == sf::Event::KeyPressed and theEvent.Key.Code == sf::Key::Escape){
+        pManager -> popState();
+    } else if (theEvent.Type == sf::Event::MouseButtonReleased){
         pManager -> popState();
     }
 }
@@ -78,6 +91,7 @@ void StateHowToPlay::draw(bool isCovered, DrawingQueue& queue){
     // Draw every line of text
     for (size_t i = 0; i < strBodyLines.size(); i++){
         queue.Draw(2, strBodyLines[i]);
+        queue.Draw(1.9, strBodyLinesShadow[i]);
     }
 
     queue.Draw(0, spBackground);

@@ -1,5 +1,6 @@
 #include "StateMainMenu.h"
 #include "StateHowToPlay.h"
+#include "StateGame.h"
 #include "ResourceManager.h"
 
 #include "i18n.h"
@@ -111,13 +112,21 @@ void StateMainMenu::event (sf::Event theEvent){
             menuSelectedOption = (mY - menuYStart) / menuYGap;
         }
     }
+
+    else if (theEvent.Type == sf::Event::MouseButtonReleased){
+        int mY = (int) theEvent.MouseMove.Y;
+
+        if(mY >= menuYStart && mY < menuYEnd){
+            optionChosen();
+        }
+    }
 }
 
 void StateMainMenu::optionChosen(){
     std::string nextState = menuOptions[menuSelectedOption].targetState;
 
     if (nextState == "stateGame"){
-
+        pManager -> pushState(StatePointer(new StateGame()));
     } else if (nextState == "stateHowToPlay"){
         pManager -> pushState(StatePointer(new StateHowToPlay()));
     } else if (nextState == "stateQuit"){

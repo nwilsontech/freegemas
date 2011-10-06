@@ -50,12 +50,20 @@ private:
     /// Sprite for the background image
     sf::Sprite spBackground;
 
+    /// String for the title
     sf::String strTitle, strTitleShadow;
+
+    /// String for the exit message
     sf::String strExitMessage, strExitMessageShadow;
 
-
+    /// Help message
     std::wstring bodyText;
+
+    /// Strings for the help message
     std::vector<sf::String> strBodyLines;
+
+    /// Shadows for the help message
+    std::vector<sf::String> strBodyLinesShadow;
 };
 
 #endif /* _STATE1_H_ */
