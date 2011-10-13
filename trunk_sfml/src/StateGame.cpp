@@ -1,3 +1,28 @@
+/**
+ * @file StateGame.cpp
+ * 
+ * @author José Tomás Tocino García
+ * @date 2011
+ *
+ * Copyright (C) 2011 José Tomás Tocino García <theom3ga@gmail.com>
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ * 02110-1301, USA.
+ */
+
+
 #include "StateGame.h"
 #include "log.h"
 #include "ResourceManager.h"
@@ -11,30 +36,42 @@ StateGame::~StateGame(){
 }
 
 void StateGame::loadResources(){
+
+    /*****************************************/
+    // FONTS
+
     // Load the font for the timer
     fontTime = ResMgr -> getFont("media/fuentelcd.ttf", 62);
 
     // Load the font for the scoreboard
     fontScore = ResMgr -> getFont("media/fuentelcd.ttf", 33);
 
-    
+    /*****************************************/
+    // IMAGES
+
     // Load the backgorund image
     spBoard.SetImage(ResMgr -> getImage("media/board.png"));
 
     // Load the image for the square selector
     spSelector.SetImage(ResMgr -> getImage("media/selector.png"));    
-   
+
+    /*****************************************/
+    // SCOREBOARD
+
     // Load the background image for the scoreboard
     spScoreBackground.SetImage(ResMgr -> getImage("media/scoreBackground.png"));
     spScoreBackground.SetPosition (17, 124);
 
-    // Create the header of the score indicator
+    // Create the header of the scoreboard
     strScoreHeader = sf::String (_("score"),
                                  ResMgr -> getFont("media/fNormal.ttf", 33),
                                  33);
     strScoreHeader.SetPosition (113 - strScoreHeader.GetRect().GetWidth() / 2, 80);
 
-    // Load the background image for the time
+    /*****************************************/
+    // TIME INDICATOR
+
+    // Load the background image for the time indicator
     spTimeBackground.SetImage(ResMgr -> getImage("media/timeBackground.png"));
     spTimeBackground.SetPosition(17, 230);
 
