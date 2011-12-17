@@ -12,6 +12,7 @@ string Log::ToString(TLogLevel T){
 	return "INFO";
 	break;
     case logDEBUG:
+    default:
 	return "DEBUG";
 	break;
     }

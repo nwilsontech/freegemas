@@ -72,8 +72,6 @@ vector<coord> Board::solutions(){
        Checkemos todos los posibles boards
        (49 * 4) + (32 * 2) aunque hay muchos repetidos
     */
-    bool flag = false;
-
 
     Board temp = *this;
     for(int x = 0; x < 8; ++x){
@@ -84,7 +82,6 @@ vector<coord> Board::solutions(){
                 temp.swap(x,y, x,y-1);
                 if(!temp.check().empty()){
                     resultados.push_back(coord(x,y));
-                    flag = true;
                 }
                 temp.swap(x,y, x,y-1);
             }
@@ -94,7 +91,6 @@ vector<coord> Board::solutions(){
                 temp.swap(x, y, x, y+1);
                 if(!temp.check().empty()){
                     resultados.push_back(coord(x,y));
-                    flag = true;
                 }
                 temp.swap(x, y, x, y+1);
             }
@@ -104,7 +100,6 @@ vector<coord> Board::solutions(){
                 temp.swap(x, y, x - 1, y);
                 if(!temp.check().empty()){
                     resultados.push_back(coord(x,y));
-                    flag = true;
                 }
                 temp.swap(x, y, x - 1, y);
             }
@@ -114,7 +109,6 @@ vector<coord> Board::solutions(){
                 temp.swap(x, y, x + 1, y);
                 if(!temp.check().empty()){
                     resultados.push_back(coord(x,y));
-                    flag = true;
                 }
                 temp.swap(x, y, x + 1, y);
             }

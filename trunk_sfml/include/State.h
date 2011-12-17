@@ -27,6 +27,8 @@
 
 #include <SFML/Window/Event.hpp>
 #include "StateManager.h"
+#include "DrawingQueue.h"
+
 
 class State{
 public:

@@ -24,6 +24,7 @@
 
 
 #include "StateManager.h"
+#include "DrawingQueue.h"
 #include "State.h"
 #include "log.h"
 
