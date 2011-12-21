@@ -37,27 +37,11 @@ StateGame::~StateGame(){
 
 void StateGame::loadResources(){
 
+    // Load the score board
     scoreBoard.loadResources();
 
-    /*****************************************/
-    // TIMER
-    
-    // Load the font for the timer
-    fontTime = ResMgr -> getFont("media/fuentelcd.ttf", 62);
-
-    // Load the background image for the time indicator
-    spTimeBackground.SetImage(ResMgr -> getImage("media/timeBackground.png"));
-    spTimeBackground.SetPosition(17, 230);
-
-    // Create the header of the time indicator
-    strTimeHeader = sf::String(_("time left"),
-                               ResMgr -> getFont("media/fNormal.ttf", 33),
-                               33);
-    strTimeHeader.SetPosition (113 - strTimeHeader.GetRect().GetWidth() / 2, 186);
-
-
-    /*****************************************/
-    // Other IMAGES
+    // Load the time board
+    timeBoard.loadResources();
 
     // Load the background image
     spBoard.SetImage(ResMgr -> getImage("media/board.png"));
@@ -77,9 +61,7 @@ void StateGame::draw (bool isCovered, DrawingQueue& queue){
     queue.Draw(0, spBoard);
 
     scoreBoard.draw (queue);
-
-    queue.Draw(1, strTimeHeader);
-    queue.Draw(1, spTimeBackground);
+    timeBoard.draw (queue);
 }
 
 /// Tests if the moouse is over a gem

@@ -37,7 +37,7 @@ using namespace std;
 #include "State.h"
 #include "Board.h"
 #include "GameScoreBoard.h"
-
+#include "GameTimeBoard.h"
 
 // #include "floatingScore.h"
 // #include "baseButton.h"
@@ -219,6 +219,8 @@ private:
     //boost::scoped_ptr<ScoreTable> scoreTable;
 
     GameScoreBoard scoreBoard;
+
+    GameTimeBoard timeBoard;
 
 };
 

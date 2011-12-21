@@ -1,14 +1,14 @@
-#ifndef _GAMESCOREBOARD_H_
-#define _GAMESCOREBOARD_H_
+#ifndef _GAMETIMEBOARD_H_
+#define _GAMETIMEBOARD_H_
 
 #include <SFML/Graphics.hpp>
 #include "DrawingQueue.h"
 
-class GameScoreBoard {    
+class GameTimeBoard {    
 public:
     void loadResources();
 
-    void redraw(int score);
+    void redraw(std::string time);
 
     void draw (DrawingQueue& queue);
 private:
@@ -19,11 +19,12 @@ private:
     /// String for the header
     sf::String stHeader;
 
-    /// Font for the score 
-    sf::Font ftScore;
+    /// Font for the time
+    sf::Font ftTime;
 
     /// String for the score
-    sf::String stScore;
+    sf::String stTime;
 };
 
-#endif /* _GAMESCOREBOARD_H_ */
+
+#endif /* _GAMETIMEBOARD_H_ */

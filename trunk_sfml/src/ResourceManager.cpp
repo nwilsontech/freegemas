@@ -26,7 +26,7 @@ sf::Image& ResourceManager::getImage(std::string path){
 
     if(it == imageMap.end()){
 
-        // Caution. unordered_map::insert returns a PAIR, with an iterator and a boolean
+        // Caution: unordered_map::insert returns a PAIR, with an iterator and a boolean
         it = imageMap.insert (std::make_pair(path, sf::Image())).first;
         it -> second.LoadFromFile (path);
         it -> second.SetSmooth (false);
