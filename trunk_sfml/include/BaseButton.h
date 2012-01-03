@@ -1,5 +1,5 @@
 /**
- * @file baseButton.h
+ * @file BaseButton.h
  * 
  * @author José Tomás Tocino García
  * @date 2011
@@ -26,15 +26,9 @@
 #ifndef _BASEBUTTON_
 #define _BASEBUTTON_
 
-#include <Gosu/Gosu.hpp>
-
-#include <boost/scoped_ptr.hpp>
-#include <boost/shared_ptr.hpp>
-
 #include <string>
-using std::wstring;
 
-#include "resManager.h"
+#include "DrawingQueue.h"
 #include "log.h"
 
 /**
@@ -60,7 +54,7 @@ public:
      * @param text Caption for the label.
      * @param imgIconPath Path for the image icon. It defaults to nothing.
      */
-    BaseButton(Gosu::Graphics & g, std::wstring text, std::wstring imgIconPath = L"");
+    void loadResources(std::string text, std::string imgIconPath = "", int lx, int ly, int lz);
 
     /** 
      * Changes the text of the button, calculating the position of the label
@@ -68,13 +62,13 @@ public:
      * 
      * @param text The new text for the label.
      */
-    void changeText(std::wstring text);
+    void changeText(std::string text);
 
     /** 
      * Draws the text at the given position.
      * 
      */
-    void draw(int x, int y, double z);
+    void draw(DrawingQueue& queue);
 
     /** 
      * Checks if the button was pressed. It uses the last drawing position to
@@ -89,23 +83,19 @@ public:
 
 private:
 
-    /// Image for the background of the button
-    boost::shared_ptr<Gosu::Image> buttonBackground;
+    sf::Sprite sfBackground;
 
-    /// Image for the icon of the button, may be null.
-    boost::shared_ptr<Gosu::Image> imgIcon;
-
-    /// Font used for the button's label
-    boost::shared_ptr<CustomFont> buttonFont;
+    sf::Sprite sfIcon;
+    
+    sf::String stLabel;
 
     /// Caption of the button
-    wstring buttonText;
+    string buttonText;
 
     /// Position of the label within the button
     int textX;
 
-    /// Graphics target    
-    Gosu::Graphics & g;
+    int x, y, z;
 
     /// Last drawing position. It's used for the clicked method.
     unsigned int lastX, lastY;    

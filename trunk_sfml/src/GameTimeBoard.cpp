@@ -22,7 +22,7 @@ void GameTimeBoard::loadResources (){
     stHeader.SetPosition (113 - floor(stHeader.GetRect().GetWidth() / 2), 186);
 
     // Redraw the text with the time
-    redraw ("00:00");
+    redraw ("00:11");
 };
 
 void GameTimeBoard::redraw (std::string time){

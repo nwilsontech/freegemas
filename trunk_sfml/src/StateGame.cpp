@@ -119,7 +119,6 @@ bool StateGame::checkClickedSquare(int mX, int mY){
     }
 
     return returnValue;
-
 }
 
 /// Shows a hint for a possible match
