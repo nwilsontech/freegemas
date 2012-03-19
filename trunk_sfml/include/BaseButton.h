@@ -54,7 +54,9 @@ public:
      * @param text Caption for the label.
      * @param imgIconPath Path for the image icon. It defaults to nothing.
      */
-    void loadResources(std::string text, std::string imgIconPath = "", int lx, int ly, int lz);
+    void loadResources(std::string text, 
+                       std::string imgIconPath = "", 
+                       int lx = 0, int ly = 0, int lz = 0);
 
     /** 
      * Changes the text of the button, calculating the position of the label
