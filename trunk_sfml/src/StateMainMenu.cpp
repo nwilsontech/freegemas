@@ -93,11 +93,8 @@ void StateMainMenu::event (sf::Event theEvent){
 
         // If enter is pressed, go and launch the highlighted option
         if (theEvent.Key.Code == sf::Key::Return){
-
             optionChosen();
-
         } else if (theEvent.Key.Code == sf::Key::Up){
-
             // Ninja technique to easily process wrapping options
             menuSelectedOption = (menuSelectedOption + menuOptions.size() - 1) % menuOptions.size();
         } else if (theEvent.Key.Code == sf::Key::Down){

@@ -113,10 +113,22 @@ public:
      * @brief Vuelca el flujo con los mensajes de log en el destino indicado, por ahora la salida estándar.
      */
     ~Log();
+
     //@{
     ///@name Constantes de colores
-    /// Constantes de cadena con códigos de colores para terminales UNIX. No se ha probado en otros sistemas.
-    static string cRojo, cVerde, cAzul, cAmar, cDef;
+
+    /// Constantes de cadena con códigos de colores para terminales UNIX. No se
+    /// ha probado en otros sistemas.
+    static string cRojo, cVerde, cAzul, cAmar, cLila;
+
+    /// Colores en negrita
+    static string nRojo, nVerde, nAzul, nAmar, nLila;
+
+    /// Colores en el fondo
+    static string bRojo, bVerde, bAzul, bAmar, bLila;
+
+    // Default color
+    static string cDef;
     //@}
 
 protected:

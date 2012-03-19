@@ -142,28 +142,27 @@ void StateManager::changeState(StatePointer state){
 }
 
 void StateManager::pushState(StatePointer state){
-    lDEBUG << "Push requested";
+    lDEBUG << Log::cLila << "### PUSH requested";
 
     pendingOperations.push (StateOp(opPUSH, state));
     ++numStates;
 }
 
 void StateManager::popState(){
-    lDEBUG << "Pop requested";
+    lDEBUG << Log::cLila << "### POP requested";
 
     pendingOperations.push (StateOp(opPOP));
     --numStates;
 }
 
 void StateManager::popAndQuit(){
-    lDEBUG << Log::cRojo << "POP 'EM ALL AND QUIT!";
+    lDEBUG << Log::cLila << "### POP AND QUIT requested";
     popAllStates();
-    lDEBUG << Log::cAzul << "SHOULD BE POPPED";
     shouldQuit = true;
 }
 
 void StateManager::popAllStates(){
-    lDEBUG << "Pop all states requested (" << numStates << " states)";
+    lDEBUG << Log::cLila << "### POP ALL requested (" << numStates << " states)";
 
     while(numStates > 0){
         popState();
@@ -172,26 +171,28 @@ void StateManager::popAllStates(){
 
 void StateManager::performOperations(){
     if(!pendingOperations.empty()){
-        lDEBUG << "Performing " << pendingOperations.size() << " operations...";
-    }
+        lDEBUG << Log::bAzul << ">> BEGIN OPERATIONS (" << pendingOperations.size() << " ops)";
+    
+        while(!pendingOperations.empty()){
+            StateOp currentOperation = pendingOperations.front();
 
-    while(!pendingOperations.empty()){
-        StateOp currentOperation = pendingOperations.front();
+            if(currentOperation.opType == opPUSH){
+                currentOperation.involvedState -> assignStateManager(this);
+                currentOperation.involvedState -> loadResources();
+                states.push_back(currentOperation.involvedState);
+                lDEBUG << Log::cAzul << "### PUSH performed";
+            }
 
-        if(currentOperation.opType == opPUSH){
-            currentOperation.involvedState -> assignStateManager(this);
-            currentOperation.involvedState -> loadResources();
-            states.push_back(currentOperation.involvedState);
-            lDEBUG << "Performed push";
+            else if(currentOperation.opType == opPOP){
+                states.back() -> cleanup();
+                states.pop_back();
+                lDEBUG << Log::cAzul << "### POP performed";
+            }
+
+            pendingOperations.pop();
         }
 
-        else if(currentOperation.opType == opPOP){
-            states.back() -> cleanup();
-            states.pop_back();
-            lDEBUG << "Performed pop";
-        }
-
-        pendingOperations.pop();
+        lDEBUG << Log::bAzul << "<< END OPERATIONS";
     }
 }
 

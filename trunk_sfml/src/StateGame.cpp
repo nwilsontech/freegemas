@@ -49,14 +49,40 @@ void StateGame::loadResources(){
     // Load the image for the square selector
     spSelector.SetImage(ResMgr -> getImage("media/selector.png"));    
 
-
 }
+
 void StateGame::event (sf::Event theEvent){
+    // If a key is pressed
+    if (theEvent.Type == sf::Event::KeyPressed){
 
+        // If escape was pressed
+        if (theEvent.Key.Code == sf::Key::Escape){
+            lDEBUG << "WUT";
+            pManager -> popState();
+        } 
+    }
+    /*
+    else if(theEvent.Type == sf::Event::MouseMoved){
+        int mY = (int) theEvent.MouseMove.Y;
+
+        if(mY >= menuYStart && mY < menuYEnd){
+            menuSelectedOption = (mY - menuYStart) / menuYGap;
+        }
+    }
+
+    else if (theEvent.Type == sf::Event::MouseButtonReleased){
+        int mY = (int) theEvent.MouseMove.Y;
+
+        if(mY >= menuYStart && mY < menuYEnd){
+            optionChosen();
+        }
+    } //*/
 }
+
 void StateGame::update (bool isCovered){
 
 }
+
 void StateGame::draw (bool isCovered, DrawingQueue& queue){
     queue.Draw(0, spBoard);
 
@@ -64,10 +90,12 @@ void StateGame::draw (bool isCovered, DrawingQueue& queue){
     timeBoard.draw (queue);
 }
 
-/// Tests if the moouse is over a gem
+/// Tests if the mouse is over a gem
 bool StateGame::overGem (int mX, int mY){
-    return (mX > 241 && mX < 241 + 65 * 8 &&
-                             mY > 41 && mY < 41 + 65 * 8);
+    return (mX > 241 && 
+            mX < 241 + 65 * 8 &&
+                 mY > 41 && 
+            mY < 41 + 65 * 8);
 }
 
 /// Returns the coords of the gem the mouse is over

@@ -1,5 +1,5 @@
 /**
- * @file stateJuego.h
+ * @file StateJuego.h
  * 
  * @author José Tomás Tocino García
  * @date 2010
@@ -32,6 +32,7 @@
 
 #include <utility>
 #include <set>
+
 using namespace std;
 
 #include "State.h"
@@ -62,6 +63,8 @@ public:
 
     /// Creates a new StateGame, initializing the loading screen
     StateGame();
+
+    /// Destructor for the state of the game
     ~StateGame();
 
     void loadResources();
@@ -188,8 +191,6 @@ private:
 
     /// Font for the clock
     sf::Font fontTime;
-
-
 
     /// Loading screen image
     sf::Sprite imgLoadingBanner;

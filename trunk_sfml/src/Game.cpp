@@ -6,6 +6,7 @@
 
 Game::Game(){
     lDEBUG << Log::CON("Game");
+
     // Create the window
     actualWindow.Create(sf::VideoMode(800, 600), "Freegemas"); 
 

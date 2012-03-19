@@ -15,8 +15,7 @@ void BaseButton::loadResources(std::string text,
     sfIcon.SetImage(ResMgr -> getImage (imgIconPath));
     sfIcon.SetPosition (x + 7, y);
 
-    changeText (text);
-    
+    changeText (text);    
 }
 
 void BaseButton::changeText(std::string text){
