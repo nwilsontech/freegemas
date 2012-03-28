@@ -74,8 +74,6 @@ public:
 
 private:
 
-
-
     int mostrandoPista;
 
     int totalAnimPista;

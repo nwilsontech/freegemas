@@ -57,7 +57,6 @@ void StateGame::event (sf::Event theEvent){
 
         // If escape was pressed
         if (theEvent.Key.Code == sf::Key::Escape){
-            lDEBUG << "WUT";
             pManager -> popState();
         } 
     }
